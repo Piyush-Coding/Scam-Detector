@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus Detector</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #48392a;
+}
+
+nav {
+    background-color: #fbf2c0;
+    height: 60px;
+}
+
+#nav-head {
+    font-size: 40px;
+    margin-left: 250px;
+    padding-top: 8px;
+}
+
+#box {
+    text-align: center;
+    margin-top: 200px;
+    height: 500px;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 800px;
+    margin-left: 570px;
+    margin-bottom: 150px;
+    background-color: #553d35;
+}
+
+#heading {
+    font-size: 20px;
+    color: #fbf2c0;
+    padding-right: 125px;
+    margin-top: 60px;
+}
+
+#fileinput {
+    border: 2px solid black;
+    background-color: transparent;
+    width: 380px;
+    height: 30px;
+}
+
+#filebutton {
+    background-color: green;
+    width: 380px;
+    height: 30px;
+    border: none;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#url {
+    font-size: 20px;
+    color: #fbf2c0;
+    padding-right: 135px;
+}
+
+#urlinput {
+    border: 2px solid black;
+    background-color: transparent;
+    width: 380px;
+    height: 30px;
+    color: white;
+    font-size: 15px;
+}
+
+#urlbutton {
+    background-color: green;
+    width: 380px;
+    height: 30px;
+    border: none;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #43281c;
+    height: 200px;
+    color: #fbf2c0;
+    text-align: center;
+    font-size: 25px;
+    position: fixed;
+    width: 100%;
+    margin-top: 0px;
+}
+</style>
+<body>
+    <div>
+        <nav>
+            <h3 id="nav-head">Scam Detector</h3>
+        </nav>
+    </div>
+    <div id="box">
+            <h3 id="heading">Upload a file to Scan for scam.</h3>
+
+            <form action="/scam/" method="post" enctype="multipart/form-data">
+                <label for="file"></label>
+                    <input type="file" id="fileinput" name="file" required><br>
+                    <button id="filebutton" type="submit">Scan</button><br><br><br><br>
+            </form>
+
+            {% if message %}
+              <h3>Results:</h3>
+            <p>{{ message }}</p>
+            {% endif %}
+            
+            <h3 id="url">Enter URL to Scan for scam.</h3>
+            <form method="post" action="/predict" onsubmit="showSpinner('urlFirm', 'urlSpinner')">
+                <label for="url">
+                    <input type="text" id="urlinput" placeholder="Enter a URL." name="url" required><br>
+                    <button id="urlbutton" type="submit">Scan</button>
+                </label>
+            </form>
+
+            {% if predicted_class %}
+            <div class="result.box {{ predicted_class.lower() }}">
+                <p><strong>URL:</strong> {{ input_url }}</p>
+                <p><strong>Predicted Class:</strong> {{ predicted_class }}</p>
+            </div>
+            {% endif %}
+    </div>
+
+    <footer>
+        <p>This Software is designed by Piyush Yadav.</p>
+    </footer>
+</body>
+</html>
